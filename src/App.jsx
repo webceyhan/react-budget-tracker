@@ -1,3 +1,9 @@
+import { Details } from './components/Details.jsx';
+
 export const App = () => {
-    return <div>app</div>;
+    return (
+        <div>
+            <Details />
+        </div>
+    );
 };
