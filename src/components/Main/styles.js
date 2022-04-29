@@ -23,3 +23,7 @@ export const root = {
         margin: '20px 0',
     },
 };
+
+export const cardContent = {
+
+}
