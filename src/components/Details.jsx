@@ -3,10 +3,10 @@ import { Card, CardHeader, CardContent, Typography } from '@mui/material';
 
 import * as styles from './styles';
 
-export const Details = () => {
+export const Details = ({ title }) => {
     return (
-        <Card>
-            <CardHeader title="Income" sx={styles.income} />
+        <Card sx={title === 'Income' ? styles.income : styles.expense}>
+            <CardHeader title={title} />
             <CardContent>
                 <Typography variant="h5">$50,000</Typography>
                 {/* <Doughnut data="DATA" /> */}
