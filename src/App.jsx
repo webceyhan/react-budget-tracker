@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
-import { Details } from './components/Details.jsx';
+import { Details } from './components/Details/Details.jsx';
+import { Main } from './components/Main/Main.jsx';
 
 export const App = () => {
     return (
@@ -16,7 +17,7 @@ export const App = () => {
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
-                    main
+                    <Main />
                 </Grid>
 
                 <Grid item xs={12} sm={4}>
