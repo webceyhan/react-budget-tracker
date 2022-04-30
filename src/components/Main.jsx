@@ -7,11 +7,9 @@ import {
     Grid,
 } from '@mui/material';
 
-import * as classes from './styles';
-
 export const Main = () => {
     return (
-        <Card sx={classes.root}>
+        <Card>
             <CardHeader
                 title="Expense Tracker"
                 subheader="Powered by Speechly"
@@ -20,10 +18,7 @@ export const Main = () => {
                 <Typography align="center" variant="h5">
                     Total Balance $100
                 </Typography>
-                <Typography
-                    variant="subtitle1"
-                    style={{ lineHeight: '1.5em', marginTop: '20px' }}
-                >
+                <Typography variant="subtitle1" mt={5}>
                     {/* InfoCard */}
                     try saying: add income for $100 in category salary for
                     monday ...
@@ -31,7 +26,7 @@ export const Main = () => {
                 <Divider />
                 {/* Form */}
             </CardContent>
-            <CardContent className={classes.cardContent}>
+            <CardContent sx={{ pt: 5 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         {/* <List/> */}
