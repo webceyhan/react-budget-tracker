@@ -1,13 +1,13 @@
-import { Grid } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import { Main } from './components/Main.jsx';
 import { Details } from './components/Details.jsx';
 
 export const App = () => {
     return (
-        <div>
+        <Container>
             <Grid
                 container
-                spacing={0}
+                spacing={2}
                 alignItems="center"
                 justifyContent="center"
                 style={{ height: '100vh' }}
@@ -24,6 +24,6 @@ export const App = () => {
                     <Details title="Expense" />
                 </Grid>
             </Grid>
-        </div>
+        </Container>
     );
 };
