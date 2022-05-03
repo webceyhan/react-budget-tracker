@@ -118,7 +118,12 @@ export const Form = () => {
             </Grid>
 
             <Grid item xs={12}>
-                <Button fullWidth variant="outlined" color="primary">
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    onClick={createTransaction}
+                >
                     Create
                 </Button>
             </Grid>
