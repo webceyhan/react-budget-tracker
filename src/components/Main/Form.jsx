@@ -10,13 +10,9 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import { useTransactionContext } from '../../context/transaction';
 import { dateToString, stringToDate } from '../../utils/date';
-import {
-    expenseCategories,
-    incomeCategories,
-    resetCategories,
-} from '../../constants/categories';
+import { useTransactionContext } from '../../context/transaction';
+import { typeCategoryMap } from '../../constants/categories';
 
 const initialState = {
     amount: '',
@@ -44,8 +40,7 @@ export const Form = () => {
     };
 
     // get categories by selected type
-    const categories =
-        formData.type === 'Income' ? incomeCategories : expenseCategories;
+    const categories = typeCategoryMap[formData.type];
 
     return (
         <Grid container spacing={2}>
