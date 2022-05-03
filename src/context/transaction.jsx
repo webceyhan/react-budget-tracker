@@ -3,7 +3,11 @@ import { contextReducer } from './transaction-reducer';
 
 const initialState = [];
 
-export const TransactionContext = createContext(initialState);
+export const TransactionContext = createContext({
+    transactions: initialState,
+    addTransaction: () => { },
+    deleteTransaction: () => { },
+});
 
 export const TransactionContextProvider = ({ children }) => {
     // define context reducer
