@@ -1,6 +1,12 @@
 import { Grid, Container } from '@mui/material';
 import { Main } from './components/Main/Main.jsx';
 import { Details } from './components/Details.jsx';
+import {
+    BigTranscript,
+    IntroPopup,
+    PushToTalkButton,
+    PushToTalkButtonContainer,
+} from '@speechly/react-ui';
 
 export const App = () => {
     return (
@@ -24,6 +30,12 @@ export const App = () => {
                     <Details title="Expense" />
                 </Grid>
             </Grid>
+
+            <BigTranscript placement="top" />
+            <PushToTalkButtonContainer>
+                <PushToTalkButton placement="bottom" captureKey=" " />
+            </PushToTalkButtonContainer>
+            <IntroPopup />
         </Container>
     );
 };
