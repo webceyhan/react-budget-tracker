@@ -11,6 +11,11 @@ import {
     MenuItem,
 } from '@mui/material';
 import { useTransactionContext } from '../../context/transaction';
+import {
+    expenseCategories,
+    incomeCategories,
+    resetCategories,
+} from '../../constants/categories';
 
 // helpers for date-input
 const dateToString = (date) => date.toISOString().substring(0, 10);
@@ -40,6 +45,10 @@ export const Form = () => {
         // reset form
         setFormData(initialState);
     };
+
+    // get categories by selected type
+    const categories =
+        formData.type === 'Income' ? incomeCategories : expenseCategories;
 
     return (
         <Grid container spacing={2}>
@@ -80,9 +89,11 @@ export const Form = () => {
                             })
                         }
                     >
-                        <MenuItem value="Salary">Salary</MenuItem>
-                        <MenuItem value="Rent">Rent</MenuItem>
-                        <MenuItem value="Food">Food</MenuItem>
+                        {categories.map((c) => (
+                            <MenuItem key={c.type} value={c.type}>
+                                {c.type}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </FormControl>
             </Grid>
