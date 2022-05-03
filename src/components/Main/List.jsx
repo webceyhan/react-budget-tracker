@@ -9,31 +9,10 @@ import {
     Slide,
 } from '@mui/material';
 import { Delete, MoneyOff } from '@mui/icons-material';
+import { useTransactionContext } from '../../context/transaction';
 
 export const List = () => {
-    const transactions = [
-        {
-            id: 1,
-            type: 'Income',
-            category: 'Salary',
-            amount: 100,
-            date: '2020-01-01',
-        },
-        {
-            id: 2,
-            type: 'Expense',
-            category: 'Rent',
-            amount: 100,
-            date: '2020-01-01',
-        },
-        {
-            id: 3,
-            type: 'Expense',
-            category: 'Food',
-            amount: 100,
-            date: '2020-01-01',
-        },
-    ];
+    const { transactions } = useTransactionContext();
 
     return (
         <MUIList dense={false} sx={{ maxHeight: 220, overflow: 'auto' }}>
