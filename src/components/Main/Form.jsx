@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     TextField,
     Typography,
@@ -8,8 +9,33 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
+import { useTransactionContext } from '../../context/transaction';
+
+// helpers for date-input
+const dateToString = (date) => date.toISOString().substring(0, 10);
+const stringToDate = (date) => new Date(date);
+
+const initialState = {
+    amount: '',
+    category: '',
+    type: 'Income',
+    date: new Date(),
+};
 
 export const Form = () => {
+    const [formData, setFormData] = useState(initialState);
+    const { addTransaction } = useTransactionContext();
+
+    const createTransaction = () => {
+        const transaction = {
+            ...formData,
+            amount: Number(formData.amount),
+        };
+
+        addTransaction(transaction);
+        setFormData(initialState);
+    };
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -21,7 +47,14 @@ export const Form = () => {
             <Grid item xs={6}>
                 <FormControl variant="standard" fullWidth>
                     <InputLabel id="type-label">Type</InputLabel>
-                    <Select id="type" labelId="type-label">
+                    <Select
+                        id="type"
+                        labelId="type-label"
+                        value={formData.type}
+                        onChange={(e) =>
+                            setFormData({ ...formData, type: e.target.value })
+                        }
+                    >
                         <MenuItem value="Income">Income</MenuItem>
                         <MenuItem value="Expense">Expense</MenuItem>
                     </Select>
@@ -31,7 +64,17 @@ export const Form = () => {
             <Grid item xs={6}>
                 <FormControl variant="standard" fullWidth>
                     <InputLabel id="category-label">Category</InputLabel>
-                    <Select id="category" labelId="category-label">
+                    <Select
+                        id="category"
+                        labelId="category-label"
+                        value={formData.category}
+                        onChange={(e) =>
+                            setFormData({
+                                ...formData,
+                                category: e.target.value,
+                            })
+                        }
+                    >
                         <MenuItem value="Salary">Salary</MenuItem>
                         <MenuItem value="Rent">Rent</MenuItem>
                         <MenuItem value="Food">Food</MenuItem>
@@ -45,6 +88,10 @@ export const Form = () => {
                     type="number"
                     label="Amount"
                     fullWidth
+                    value={formData.amount}
+                    onChange={(e) =>
+                        setFormData({ ...formData, amount: e.target.value })
+                    }
                 />
             </Grid>
 
@@ -55,6 +102,13 @@ export const Form = () => {
                     label="Date"
                     fullWidth
                     InputLabelProps={{ shrink: true }}
+                    value={dateToString(formData.date)}
+                    onChange={(e) =>
+                        setFormData({
+                            ...formData,
+                            date: stringToDate(e.target.value),
+                        })
+                    }
                 />
             </Grid>
 
