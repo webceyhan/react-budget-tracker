@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import { useState } from 'react';
 import {
     TextField,
@@ -28,11 +29,15 @@ export const Form = () => {
 
     const createTransaction = () => {
         const transaction = {
-            ...formData,
-            amount: Number(formData.amount),
+            ...formData, // extract form data
+            amount: Number(formData.amount), // cast to number
+            id: uuid(), // generate unique id
         };
 
+        // update context
         addTransaction(transaction);
+
+        // reset form
         setFormData(initialState);
     };
 
