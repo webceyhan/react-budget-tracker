@@ -3,6 +3,7 @@ import { Main } from './components/Main/Main.jsx';
 import { Details } from './components/Details.jsx';
 import {
     BigTranscript,
+    ErrorPanel,
     IntroPopup,
     PushToTalkButton,
     PushToTalkButtonContainer,
@@ -34,6 +35,7 @@ export const App = () => {
             <BigTranscript placement="top" />
             <PushToTalkButtonContainer>
                 <PushToTalkButton placement="bottom" captureKey=" " />
+                <ErrorPanel />
             </PushToTalkButtonContainer>
             <IntroPopup />
         </Container>
