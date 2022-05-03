@@ -26,10 +26,17 @@ export const List = () => {
             amount: 100,
             date: '2020-01-01',
         },
+        {
+            id: 3,
+            type: 'Expense',
+            category: 'Food',
+            amount: 100,
+            date: '2020-01-01',
+        },
     ];
 
     return (
-        <MUIList dense={false}>
+        <MUIList dense={false} sx={{ maxHeight: 220, overflow: 'auto' }}>
             {transactions.map((transaction) => (
                 <Slide
                     direction="down"
