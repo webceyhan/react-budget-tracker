@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Delete, MoneyOff } from '@mui/icons-material';
 import { useTransactionContext } from '../../context/transaction';
+import { formatDate } from '../../utils/date';
 
 export const List = () => {
     const { transactions } = useTransactionContext();
@@ -41,7 +42,9 @@ export const List = () => {
 
                         <ListItemText
                             primary={transaction.category}
-                            secondary={`${transaction.amount} on ${transaction.date}`}
+                            secondary={`${transaction.amount} on ${formatDate(
+                                transaction.date
+                            )}`}
                         />
                         <ListItemSecondaryAction>
                             <IconButton edge="end" aria-label="delete">

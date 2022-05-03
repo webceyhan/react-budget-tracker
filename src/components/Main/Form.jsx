@@ -11,15 +11,12 @@ import {
     MenuItem,
 } from '@mui/material';
 import { useTransactionContext } from '../../context/transaction';
+import { dateToString, stringToDate } from '../../utils/date';
 import {
     expenseCategories,
     incomeCategories,
     resetCategories,
 } from '../../constants/categories';
-
-// helpers for date-input
-const dateToString = (date) => date.toISOString().substring(0, 10);
-const stringToDate = (date) => new Date(date);
 
 const initialState = {
     amount: '',
