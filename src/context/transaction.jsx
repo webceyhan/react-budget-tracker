@@ -1,11 +1,11 @@
 import { createContext, useContext, useReducer } from 'react';
-import { contextReducer } from './context-reducer';
+import { contextReducer } from './transaction-reducer';
 
 const initialState = [];
 
-export const BudgetTrackerContext = createContext(initialState);
+export const TransactionContext = createContext(initialState);
 
-export const BudgetTrackerContextProvider = ({ children }) => {
+export const TransactionContextProvider = ({ children }) => {
     // define context reducer
     const [transactions, dispatch] = useReducer(contextReducer, initialState);
 
@@ -17,7 +17,7 @@ export const BudgetTrackerContextProvider = ({ children }) => {
         dispatch({ type: 'DELETE_TRANSACTION', payload: id });
 
     return (
-        <BudgetTrackerContext.Provider
+        <TransactionContext.Provider
             value={{
                 transactions,
                 addTransaction,
@@ -25,8 +25,8 @@ export const BudgetTrackerContextProvider = ({ children }) => {
             }}
         >
             {children}
-        </BudgetTrackerContext.Provider>
+        </TransactionContext.Provider>
     );
 };
 
-export const useBudgetTrackerContext = () => useContext(BudgetTrackerContext);
+export const useTransactionContext = () => useContext(TransactionContext);
