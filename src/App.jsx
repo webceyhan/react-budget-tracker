@@ -1,5 +1,5 @@
 import { Grid, Container } from '@mui/material';
-import { Main } from './components/Main.jsx';
+import { Main } from './components/Main/Main.jsx';
 import { Details } from './components/Details.jsx';
 
 export const App = () => {

@@ -6,6 +6,7 @@ import {
     Divider,
     Grid,
 } from '@mui/material';
+import { Form } from './Form';
 
 export const Main = () => {
     return (
@@ -24,7 +25,7 @@ export const Main = () => {
                     monday ...
                 </Typography>
                 <Divider />
-                {/* Form */}
+                <Form />
             </CardContent>
             <CardContent sx={{ pt: 5 }}>
                 <Grid container spacing={2}>
