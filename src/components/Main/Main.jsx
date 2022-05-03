@@ -7,6 +7,7 @@ import {
     Grid,
 } from '@mui/material';
 import { Form } from './Form';
+import { List } from './List';
 
 export const Main = () => {
     return (
@@ -30,7 +31,7 @@ export const Main = () => {
             <CardContent sx={{ pt: 5 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        {/* <List/> */}
+                        <List />
                     </Grid>
                 </Grid>
             </CardContent>
