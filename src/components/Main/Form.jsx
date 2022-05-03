@@ -13,6 +13,7 @@ import {
 import { dateToString, stringToDate } from '../../utils/date';
 import { useTransactionContext } from '../../context/transaction';
 import { typeCategoryMap } from '../../constants/categories';
+import { useSpeechContext } from '@speechly/react-client';
 
 const initialState = {
     amount: '',
@@ -24,6 +25,9 @@ const initialState = {
 export const Form = () => {
     const [formData, setFormData] = useState(initialState);
     const { addTransaction } = useTransactionContext();
+    const { segment } = useSpeechContext();
+
+    console.log(segment);
 
     const createTransaction = () => {
         const transaction = {
@@ -46,7 +50,7 @@ export const Form = () => {
         <Grid container spacing={2}>
             <Grid item xs={12}>
                 <Typography align="center" variant="subtitle2" gutterBottom>
-                    ...
+                    {segment && segment.words.map((w) => w.value).join(' ')}
                 </Typography>
             </Grid>
 
