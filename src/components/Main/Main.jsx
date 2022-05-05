@@ -9,6 +9,7 @@ import {
 import { Form } from './Form';
 import { List } from './List';
 import { useTransactionContext } from '../../context/transaction';
+import { InfoCard } from '../InfoCard';
 
 export const Main = () => {
     const { balance } = useTransactionContext();
@@ -23,10 +24,8 @@ export const Main = () => {
                 <Typography align="center" variant="h6">
                     Total Balance ${balance}
                 </Typography>
-                <Typography variant="body2" mt={2} color="GrayText">
-                    {/* InfoCard */}
-                    try saying: Add income for $100 in category salary for
-                    monday ...
+                <Typography variant="body2" mt={2} color="GrayText" component="div">
+                    <InfoCard />
                 </Typography>
                 <Divider sx={{ my: 2 }} />
                 <Form />
