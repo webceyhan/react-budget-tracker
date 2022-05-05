@@ -1,12 +1,13 @@
 import { createContext, useContext, useReducer } from 'react';
+import { fetchTransactions } from './local-storage';
 import { contextReducer } from './transaction-reducer';
 
-const initialState = [];
+const initialState = fetchTransactions();
 
 export const TransactionContext = createContext({
     transactions: initialState,
-    addTransaction: () => { },
-    deleteTransaction: () => { },
+    addTransaction: () => {},
+    deleteTransaction: () => {},
 });
 
 export const TransactionContextProvider = ({ children }) => {
