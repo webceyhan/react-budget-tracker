@@ -20,12 +20,12 @@ export const Main = () => {
                 <Typography align="center" variant="h5">
                     Total Balance $100
                 </Typography>
-                <Typography variant="subtitle1" mt={5}>
+                <Typography variant="subtitle1" mt={2}>
                     {/* InfoCard */}
                     try saying: add income for $100 in category salary for
                     monday ...
                 </Typography>
-                <Divider />
+                <Divider sx={{ my: 2 }} />
                 <Form />
             </CardContent>
             <CardContent sx={{ pt: 5 }}>
