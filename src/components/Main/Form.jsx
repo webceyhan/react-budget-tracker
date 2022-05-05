@@ -15,6 +15,7 @@ import { useTransactionContext } from '../../context/transaction';
 import { typeCategoryMap } from '../../constants/categories';
 import { useSpeechContext } from '@speechly/react-client';
 import { parseSegment } from '../../utils/speech';
+import { CustomSnackbar } from '../Snackbar';
 
 const initialState = {
     amount: '',
@@ -27,6 +28,7 @@ export const Form = () => {
     const { addTransaction } = useTransactionContext();
     const [formData, setFormData] = useState(initialState);
     const [speechDone, setSpeechDone] = useState(false);
+    const [open, setOpen] = useState(false);
     const categories = typeCategoryMap[formData.type];
     const { segment } = useSpeechContext();
 
@@ -45,6 +47,7 @@ export const Form = () => {
         };
 
         // update context
+        setOpen(true);
         addTransaction(transaction);
         resetForm();
     };
@@ -74,7 +77,7 @@ export const Form = () => {
      * workaround: useState setter does not update the state immediately
      * so we cannot use it inside the first useEffect which has no dependency of formData
      * which causes formData state inside createTransaction to be the previous state.
-     * 
+     *
      * Herefore we us second useEffect with additional state speechDone to update formData
      * after the speech is done in first useEffect.
      */
@@ -96,6 +99,7 @@ export const Form = () => {
 
     return (
         <Grid container spacing={2}>
+            <CustomSnackbar open={open} setOpen={setOpen} />
             {/* <Grid item xs={12}>
                 <Typography align="center" variant="subtitle2" gutterBottom>
                     {segment && segment.words.map((w) => w.value).join(' ')}
