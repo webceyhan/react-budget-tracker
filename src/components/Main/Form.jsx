@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     TextField,
     Typography,
@@ -12,7 +12,11 @@ import {
 } from '@mui/material';
 import { dateToString, stringToDate } from '../../utils/date';
 import { useTransactionContext } from '../../context/transaction';
-import { typeCategoryMap } from '../../constants/categories';
+import {
+    expenseCategories,
+    incomeCategories,
+    typeCategoryMap,
+} from '../../constants/categories';
 import { useSpeechContext } from '@speechly/react-client';
 
 const initialState = {
@@ -25,9 +29,10 @@ const initialState = {
 export const Form = () => {
     const [formData, setFormData] = useState(initialState);
     const { addTransaction } = useTransactionContext();
+    const categories = typeCategoryMap[formData.type];
     const { segment } = useSpeechContext();
 
-    console.log(segment);
+    const resetForm = () => setFormData(initialState);
 
     const createTransaction = () => {
         const transaction = {
@@ -38,13 +43,63 @@ export const Form = () => {
 
         // update context
         addTransaction(transaction);
-
-        // reset form
-        setFormData(initialState);
+        resetForm();
     };
 
-    // get categories by selected type
-    const categories = typeCategoryMap[formData.type];
+    useEffect(() => {
+        // quit if no segment
+        if (segment) {
+            const { intent } = segment.intent;
+
+            if (intent === 'add_income') {
+                setFormData({ ...formData, type: 'Income' });
+            } else if (intent === 'add_expense') {
+                setFormData({ ...formData, type: 'Expense' });
+            } else if (segment.isFinal && intent === 'create_transaction') {
+                return createTransaction();
+            } else if (segment.isFinal && intent === 'cancel_transaction') {
+                return resetForm();
+            }
+
+            // update form data
+            segment.entities.forEach(({ type, value }) => {
+                switch (type) {
+                    case 'amount':
+                        setFormData({ ...formData, amount: value });
+                        break;
+
+                    case 'category': {
+                        // value is in capital case, so we should convert to Ucfirst
+                        const category =
+                            value.charAt(0).toUpperCase() +
+                            value.slice(1).toLowerCase();
+
+                        if (incomeCategories.includes(category)) {
+                            setFormData({
+                                ...formData,
+                                type: 'Income',
+                                category,
+                            });
+                        } else if (expenseCategories.includes(category)) {
+                            setFormData({
+                                ...formData,
+                                type: 'Expense',
+                                category,
+                            });
+                        }
+                        break;
+                    }
+
+                    // case 'date':
+                    //     setFormData({ ...formData, date: value });
+                    //     break;
+
+                    default:
+                        break;
+                }
+            });
+        }
+    }, [segment]);
 
     return (
         <Grid container spacing={2}>
