@@ -21,9 +21,16 @@ export const TransactionContextProvider = ({ children }) => {
     const deleteTransaction = (id) =>
         dispatch({ type: 'DELETE_TRANSACTION', payload: id });
 
+    const balance = transactions.reduce(
+        (sum, { type, amount }) =>
+            type === 'Income' ? sum + amount : sum - amount,
+        0
+    );
+
     return (
         <TransactionContext.Provider
             value={{
+                balance,
                 transactions,
                 addTransaction,
                 deleteTransaction,

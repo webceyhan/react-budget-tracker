@@ -8,8 +8,11 @@ import {
 } from '@mui/material';
 import { Form } from './Form';
 import { List } from './List';
+import { useTransactionContext } from '../../context/transaction';
 
 export const Main = () => {
+    const { balance } = useTransactionContext();
+
     return (
         <Card>
             <CardHeader
@@ -18,7 +21,7 @@ export const Main = () => {
             />
             <CardContent>
                 <Typography align="center" variant="h5">
-                    Total Balance $100
+                    Total Balance ${balance}
                 </Typography>
                 <Typography variant="subtitle1" mt={2}>
                     {/* InfoCard */}
