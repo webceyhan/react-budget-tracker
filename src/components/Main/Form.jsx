@@ -10,10 +10,11 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import { dateToString, parseSegment, stringToDate } from '../../utils';
+import { dateToString, isValidDate, stringToDate } from '../../utils/common';
 import { useTransactionContext } from '../../context/transaction';
 import { typeCategoryMap } from '../../constants/categories';
 import { useSpeechContext } from '@speechly/react-client';
+import { parseSegment } from '../../utils/speech';
 
 const initialState = {
     amount: '',
@@ -25,12 +26,18 @@ const initialState = {
 export const Form = () => {
     const { addTransaction } = useTransactionContext();
     const [formData, setFormData] = useState(initialState);
-    const { segment } = useSpeechContext();
+    const [speechDone, setSpeechDone] = useState(false);
     const categories = typeCategoryMap[formData.type];
+    const { segment } = useSpeechContext();
 
     const resetForm = () => setFormData(initialState);
 
     const createTransaction = () => {
+        // validation
+        if (!formData.category || formData.category === '') return;
+        if (isNaN(formData.amount) || formData.amount <= 0) return;
+        if (!isValidDate(formData.date)) return;
+
         const transaction = {
             ...formData, // extract form data
             id: uuid(), // generate unique id
@@ -43,9 +50,9 @@ export const Form = () => {
     };
 
     useEffect(() => {
-        // quit if no segment
-        if (segment && segment.isFinal) {
-            // extract intent
+        // check final segment
+        if (segment?.isFinal) {
+            // extract intent from segment
             const { intent } = segment.intent;
 
             // check intent
@@ -55,20 +62,45 @@ export const Form = () => {
                 return resetForm();
             }
 
-            // fill form data
-            resetForm();
-            const parsedData = parseSegment(segment);
-            setFormData({ ...formData, ...parsedData });
+            // parse data from segment
+            const data = parseSegment(segment);
+            setFormData((old) => ({ ...old, ...data }));
+            setSpeechDone(true);
         }
     }, [segment]);
 
+    /**
+     * Speech callback to update form data
+     * workaround: useState setter does not update the state immediately
+     * so we cannot use it inside the first useEffect which has no dependency of formData
+     * which causes formData state inside createTransaction to be the previous state.
+     * 
+     * Herefore we us second useEffect with additional state speechDone to update formData
+     * after the speech is done in first useEffect.
+     */
+    useEffect(() => {
+        if (!speechDone) return;
+
+        // create transaction automatically
+        if (
+            formData.type &&
+            formData.category &&
+            formData.amount &&
+            formData.date
+        ) {
+            createTransaction();
+        }
+
+        setSpeechDone(false);
+    }, [speechDone, formData]);
+
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                 <Typography align="center" variant="subtitle2" gutterBottom>
                     {segment && segment.words.map((w) => w.value).join(' ')}
                 </Typography>
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={6}>
                 <FormControl variant="standard" fullWidth>

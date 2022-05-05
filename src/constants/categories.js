@@ -58,7 +58,3 @@ export const resetCategories = () => {
     incomeCategories.forEach((c) => (c.amount = 0));
     expenseCategories.forEach((c) => (c.amount = 0));
 };
-
-export const incomeMap = incomeCategories.reduce((acc, { type }) => ({ ...acc, [type]: 'Income' }), {});
-export const expenseMap = expenseCategories.reduce((acc, { type }) => ({ ...acc, [type]: 'Expense' }), {});
-export const categoryMap = { ...incomeMap, ...expenseMap };

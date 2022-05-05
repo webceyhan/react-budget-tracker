@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Delete, MoneyOff } from '@mui/icons-material';
 import { useTransactionContext } from '../../context/transaction';
-import { formatDate } from '../../utils';
+import { formatDate } from '../../utils/common';
 
 export const List = () => {
     const { transactions } = useTransactionContext();
