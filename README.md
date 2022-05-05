@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+<!-- AUTOMATION BADGES -->
+
+[![CodeQL](https://github.com/webceyhan/react-budget-tracker/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/webceyhan/react-budget-tracker/actions/workflows/codeql-analysis.yml)
+[![Build and Deploy](https://github.com/webceyhan/react-budget-tracker/actions/workflows/netlify-deploy.yml/badge.svg)](https://github.com/webceyhan/react-budget-tracker/actions/workflows/netlify-deploy.yml)
+
+<!-- HEADER ///////////////////////////////////////////////////////////// -->
+
+# Budget Tracker App + React + MaterialUI + Speechly
+
+This is a mobile friendly Budget Tracker inspired by a tutorial.\
+
+It's covering many advanced React & JavaScript topics. Some of them are State Management in React, Context API, Local Storage, Material UI, and how to create a scalable React folder structure. 
+
+But most importantly, how to add voice capabilities to the applications using Speechly which is a cloud-based speech recognition service. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<br>
+<!-- INSTALLATION //////////////////////////////////////////////////////// -->
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+1. Clone the repository.
+    ```sh
+    git clone https://github.com/webceyhan/react-budget-tracker.git
+    ```
+2. Get inside the cloned project folder.
+    ```sh
+    cd react-budget-tracker
+    ```
+3. Install NPM packages.
+    ```sh
+    npm install
+    ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
+<!-- DEVELOPMENT ///////////////////////////////////////////////////////// -->
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Development
 
-### `npm test`
+Run the app in the development mode.
 
-Launches the test runner in the interactive watch mode.\
+```sh
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.\
+The page will reload when you make changes. You may also see any lint errors in the console.
+
+<br>
+<!-- TESTING ///////////////////////////////////////////////////////////// -->
+
+## Testing
+
+Launch the test runner in the interactive watch mode.
+
+```sh
+npm test
+```
+
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+<br>
+<!-- BUILDING //////////////////////////////////////////////////////////// -->
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Building
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Build the app for production to the `build` folder.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+npm run build
+```
 
-### `npm run eject`
+It correctly bundles React in production mode and optimizes the build for the best performance.\
+The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You can also preview the built application locally as follows:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm install -g serve # if not installed yet
+serve -s build
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br>
+<!-- DEPLOYMENT ////////////////////////////////////////////////////////// -->
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Deployment on Netlify
 
-## Learn More
+A GitHub Action will automatically deploy the project to Netlify on every push.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> See the details in [.github/workflows/netlify-deploy.yml](./.github/workflows/netlify-deploy.yml)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
+<!-- REFERENCES ////////////////////////////////////////////////////////// -->
 
-### Code Splitting
+## References
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-   [Node.js](https://nodejs.dev/)
+-   [React](https://reactjs.org/)
+-   [Material UI](https://material-ui.com/)
+-   [Speechly](https://speechly.com/)
+-   [GitHub Actions](https://docs.github.com/en/actions)
+    -   [Netlify](https://www.netlify.com/)
+    -   [Netlify Actions](https://github.com/nwtgck/actions-netlify)
+-   [Build and Deploy a Voice Powered React App - Budget Tracker | Context API, Local Storage, Speechly](https://www.youtube.com/watch?v=NnUFOWR_V4Y&t=4656s)
