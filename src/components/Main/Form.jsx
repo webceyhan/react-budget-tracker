@@ -69,6 +69,7 @@ export const Form = () => {
             setFormData((old) => ({ ...old, ...data }));
             setSpeechDone(true);
         }
+        // eslint-disable-next-line
     }, [segment]);
 
     /**
@@ -94,6 +95,8 @@ export const Form = () => {
         }
 
         setSpeechDone(false);
+
+        // eslint-disable-next-line
     }, [speechDone, formData]);
 
     return (
