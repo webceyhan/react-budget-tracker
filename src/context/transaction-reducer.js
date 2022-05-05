@@ -11,7 +11,7 @@ export const contextReducer = (state, action) => {
             return txs;
         }
 
-        case 'REMOVE_TRANSACTION': {
+        case 'DELETE_TRANSACTION': {
             const txs = state.filter((tx) => tx.id !== action.payload);
 
             // save to local storage

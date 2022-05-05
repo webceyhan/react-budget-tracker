@@ -13,17 +13,17 @@ import { useTransactionContext } from '../../context/transaction';
 import { formatDate } from '../../utils/common';
 
 export const List = () => {
-    const { transactions } = useTransactionContext();
+    const { transactions, deleteTransaction } = useTransactionContext();
 
     return (
         <MUIList dense={false} sx={{ maxHeight: 220, overflow: 'auto' }}>
-            {transactions.map((transaction) => (
+            {transactions.map((tx) => (
                 <Slide
                     direction="down"
                     in
                     mountOnEnter
                     unmountOnExit
-                    key={transaction.id}
+                    key={tx.id}
                 >
                     <ListItem>
                         <ListItemAvatar>
@@ -31,7 +31,7 @@ export const List = () => {
                                 sx={{
                                     color: 'white',
                                     bgcolor:
-                                        transaction.type === 'Income'
+                                        tx.type === 'Income'
                                             ? 'success.main'
                                             : 'error.main',
                                 }}
@@ -41,13 +41,15 @@ export const List = () => {
                         </ListItemAvatar>
 
                         <ListItemText
-                            primary={transaction.category}
-                            secondary={`${transaction.amount} on ${formatDate(
-                                transaction.date
-                            )}`}
+                            primary={tx.category}
+                            secondary={`${tx.amount} on ${formatDate(tx.date)}`}
                         />
                         <ListItemSecondaryAction>
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton
+                                edge="end"
+                                aria-label="delete"
+                                onClick={() => deleteTransaction(tx.id)}
+                            >
                                 <Delete />
                             </IconButton>
                         </ListItemSecondaryAction>
