@@ -1,4 +1,3 @@
-import { forwardRef } from 'react';
 import { Snackbar, Alert } from '@mui/material';
 
 export const CustomSnackbar = ({ open, setOpen }) => {
