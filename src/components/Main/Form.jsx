@@ -10,13 +10,9 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import { dateToString, stringToDate } from '../../utils/date';
+import { dateToString, parseSegment, stringToDate } from '../../utils';
 import { useTransactionContext } from '../../context/transaction';
-import {
-    expenseCategories,
-    incomeCategories,
-    typeCategoryMap,
-} from '../../constants/categories';
+import { typeCategoryMap } from '../../constants/categories';
 import { useSpeechContext } from '@speechly/react-client';
 
 const initialState = {
@@ -27,18 +23,18 @@ const initialState = {
 };
 
 export const Form = () => {
-    const [formData, setFormData] = useState(initialState);
     const { addTransaction } = useTransactionContext();
-    const categories = typeCategoryMap[formData.type];
+    const [formData, setFormData] = useState(initialState);
     const { segment } = useSpeechContext();
+    const categories = typeCategoryMap[formData.type];
 
     const resetForm = () => setFormData(initialState);
 
     const createTransaction = () => {
         const transaction = {
             ...formData, // extract form data
-            amount: Number(formData.amount), // cast to number
             id: uuid(), // generate unique id
+            amount: Number(formData.amount), // cast to number
         };
 
         // update context
@@ -48,56 +44,21 @@ export const Form = () => {
 
     useEffect(() => {
         // quit if no segment
-        if (segment) {
+        if (segment && segment.isFinal) {
+            // extract intent
             const { intent } = segment.intent;
 
-            if (intent === 'add_income') {
-                setFormData({ ...formData, type: 'Income' });
-            } else if (intent === 'add_expense') {
-                setFormData({ ...formData, type: 'Expense' });
-            } else if (segment.isFinal && intent === 'create_transaction') {
+            // check intent
+            if (intent === 'create_transaction') {
                 return createTransaction();
-            } else if (segment.isFinal && intent === 'cancel_transaction') {
+            } else if (intent === 'cancel_transaction') {
                 return resetForm();
             }
 
-            // update form data
-            segment.entities.forEach(({ type, value }) => {
-                switch (type) {
-                    case 'amount':
-                        setFormData({ ...formData, amount: value });
-                        break;
-
-                    case 'category': {
-                        // value is in capital case, so we should convert to Ucfirst
-                        const category =
-                            value.charAt(0).toUpperCase() +
-                            value.slice(1).toLowerCase();
-
-                        if (incomeCategories.includes(category)) {
-                            setFormData({
-                                ...formData,
-                                type: 'Income',
-                                category,
-                            });
-                        } else if (expenseCategories.includes(category)) {
-                            setFormData({
-                                ...formData,
-                                type: 'Expense',
-                                category,
-                            });
-                        }
-                        break;
-                    }
-
-                    // case 'date':
-                    //     setFormData({ ...formData, date: value });
-                    //     break;
-
-                    default:
-                        break;
-                }
-            });
+            // fill form data
+            resetForm();
+            const parsedData = parseSegment(segment);
+            setFormData({ ...formData, ...parsedData });
         }
     }, [segment]);
 
@@ -117,7 +78,11 @@ export const Form = () => {
                         labelId="type-label"
                         value={formData.type}
                         onChange={(e) =>
-                            setFormData({ ...formData, type: e.target.value })
+                            setFormData({
+                                ...formData,
+                                category: '', // reset
+                                type: e.target.value,
+                            })
                         }
                     >
                         <MenuItem value="Income">Income</MenuItem>
